@@ -191,46 +191,67 @@ void corrigirNome() {
 
 int main() {
     int opcao = 0;
+    char senhadigitada[10]="a";
+    int comparacao;
+    
+    printf("### Cartorio da EBAC ###\n\n");
+    printf("Login de administrador! \n\nDigite a sua senha:");
+    scanf("%s", senhadigitada);
+    
+    comparacao = strcmp(senhadigitada, "admin");
+    
+    
+    if(comparacao == 0)
+    {
+	
+    	
+	
+    
 
-    setlocale(LC_ALL, "portuguese");
+     setlocale(LC_ALL, "portuguese");
 
-    while (1) {
+     while (1) {
         system("cls");
 
-        printf("### Cartorio da EBAC ###\n\n");
-        printf("Escolha a opcao desejada do menu:\n\n");
-        printf("\t1 - Registrar Nomes\n");
-        printf("\t2 - Consultar os Nomes\n");
-        printf("\t3 - Deletar os Nomes\n");
-        printf("\t4 - Corrigir Nome\n");
-        printf("\t0 - Sair\n\n");
-        printf("Opcao: ");
+         printf("### Cartorio da EBAC ###\n\n");
+         printf("Escolha a opcao desejada do menu:\n\n");
+         printf("\t1 - Registrar Nomes\n");
+         printf("\t2 - Consultar os Nomes\n");
+         printf("\t3 - Deletar os Nomes\n");
+         printf("\t4 - Corrigir Nome\n");
+         printf("\t0 - Sair\n\n");
+         printf("Opcao: ");
 
-        scanf("%d", &opcao);
+         scanf("%d", &opcao);
 
-        system("cls");
+         system("cls");
 
-        switch (opcao) {
-            case 1:
-                registrarNome();
-                break;
-            case 2:
-                consultarNomes();
-                break;
-            case 3:
-                deletarNome();
-                break;
-            case 4:
-                corrigirNome();
-                break;
-            case 0:
-                printf("Encerrando o sistema. Ate logo!\n");
-                system("pause");
-                return 0;
-            default:
-                printf("Essa opcao nao esta disponivel!\n");
-                system("pause");
-                break;
+         switch (opcao) {
+             case 1:
+                 registrarNome();
+                 break;
+             case 2:
+                 consultarNomes();
+                 break;
+             case 3:
+                 deletarNome();
+                 break;
+             case 4:
+                 corrigirNome();
+                 break;
+             case 0:
+                 printf("Encerrando o sistema. Ate logo!\n");
+                 system("pause");
+                 return 0;
+             default:
+                 printf("Essa opcao nao esta disponivel!\n");
+                 system("pause");
+                 break;
         }
     }
+    
+    }
+    else
+    	printf("Senha incorreta!");
+    	
 }
