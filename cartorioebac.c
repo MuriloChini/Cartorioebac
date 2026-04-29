@@ -132,6 +132,63 @@ void deletarNome() {
     system("pause");
 }
 
+void corrigirNome() {
+    char nomeAntigo[TAM_NOME];
+    char nomeNovo[TAM_NOME];
+    char nomeLinha[TAM_NOME];
+    FILE *arquivo, *temp;
+    int encontrado = 0;
+
+    printf("=== Corrigir Nome ===\n\n");
+    printf("Digite o nome que deseja corrigir: ");
+    scanf(" %[^\n]", nomeAntigo);
+    trim(nomeAntigo);
+
+    arquivo = fopen(ARQUIVO, "r");
+    if (arquivo == NULL) {
+        printf("\nNenhum nome registrado ainda.\n");
+        system("pause");
+        return;
+    }
+
+    temp = fopen("temp.txt", "w");
+    if (temp == NULL) {
+        printf("\nErro ao criar arquivo temporario!\n");
+        fclose(arquivo);
+        system("pause");
+        return;
+    }
+
+    while (fgets(nomeLinha, TAM_NOME, arquivo) != NULL) {
+        trim(nomeLinha);
+
+        if (strcmp(nomeLinha, nomeAntigo) == 0 && !encontrado) {
+            encontrado = 1;
+            // so pede o nome novo quando achar o antigo
+            printf("Nome encontrado! Digite o nome correto: ");
+            scanf(" %[^\n]", nomeNovo);
+            trim(nomeNovo);
+            fprintf(temp, "%s\n", nomeNovo);
+        } else {
+            fprintf(temp, "%s\n", nomeLinha);
+        }
+    }
+
+    fclose(arquivo);
+    fclose(temp);
+
+    remove(ARQUIVO);
+    rename("temp.txt", ARQUIVO);
+
+    if (encontrado) {
+        printf("\nNome corrigido com sucesso!\n");
+    } else {
+        printf("\nNome nao encontrado!\n");
+    }
+
+    system("pause");
+}
+
 int main() {
     int opcao = 0;
 
@@ -145,6 +202,7 @@ int main() {
         printf("\t1 - Registrar Nomes\n");
         printf("\t2 - Consultar os Nomes\n");
         printf("\t3 - Deletar os Nomes\n");
+        printf("\t4 - Corrigir Nome\n");
         printf("\t0 - Sair\n\n");
         printf("Opcao: ");
 
@@ -161,6 +219,9 @@ int main() {
                 break;
             case 3:
                 deletarNome();
+                break;
+            case 4:
+                corrigirNome();
                 break;
             case 0:
                 printf("Encerrando o sistema. Ate logo!\n");
